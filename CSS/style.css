@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.search-container {
+  margin-top: 10vh;
+  padding: 10px;
+}
+
+.loader {
+  display: none;
+  position: relative;
+  height: 12px;
+  width: 100%;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.loader:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: green;
+  animation: 6s progress ease-in infinite;
+}
+
+@keyframes progress {
+  to {
+    width: 100%;
+  }
+}
