@@ -11,6 +11,7 @@ async function loadAPI(url) {
     console.log("err: ", err);
   }
 }
+// export { loadAPI };
 
 async function searchCompany() {
   let inputText = searchInput.value;
@@ -32,7 +33,7 @@ function showSearchResult(apiResult) {
       element.name + " (" + element.symbol + ")";
     cloneLinkTemplate
       .querySelector("a")
-      .setAttribute("href", "/company.html?symbol=" + element.symbol);
+      .setAttribute("href", "../HTML/company.html?symbol=" + element.symbol);
     resultList.appendChild(cloneLinkTemplate);
   });
 }
