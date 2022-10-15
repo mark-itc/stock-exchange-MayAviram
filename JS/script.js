@@ -72,3 +72,28 @@ async function getCompanyInfo(symbol) {
   );
   return companyInfo;
 }
+
+async function getMarquee() {
+  let companyListPrice = await loadAPI(
+    "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/quotes"
+  );
+  // console.log(companyListPrice);
+  let marquee = document.getElementById("marquee");
+  companyListPrice.forEach((company) => {
+    console.log(company);
+
+    let stockPrice = company.price;
+    let stockSymbol = company.symbol;
+    let price = document.createElement("span");
+    price.style.color = "LightGreen";
+    let symbol = document.createElement("span");
+    price.innerHTML = `$${parseFloat(stockPrice).toFixed(2)}`;
+    symbol.innerHTML = stockSymbol;
+    let companyDiv = document.createElement("span");
+    companyDiv.classList.add("company-div");
+    companyDiv.appendChild(symbol);
+    companyDiv.appendChild(price);
+    marquee.appendChild(companyDiv);
+  });
+}
+getMarquee();
