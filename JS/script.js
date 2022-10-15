@@ -11,8 +11,6 @@ async function loadAPI(url) {
     console.log("err: ", err);
   }
 }
-// export { loadAPI };
-
 async function searchCompany() {
   let inputText = searchInput.value;
   let url =
@@ -27,13 +25,27 @@ function showSearchResult(apiResult) {
   let resultList = document.getElementById("resultList");
   let template = document.getElementById("template");
   resultList.innerHTML = "";
-  apiResult.forEach((element) => {
+  apiResult.forEach(async (element) => {
+    let companyInfo = await getCompanyInfo(element.symbol);
     let cloneLinkTemplate = template.content.cloneNode(true);
+    cloneLinkTemplate
+      .querySelector("img")
+      .setAttribute("src", companyInfo.profile.image);
     cloneLinkTemplate.querySelector("h7").innerHTML =
       element.name + " (" + element.symbol + ")";
     cloneLinkTemplate
       .querySelector("a")
       .setAttribute("href", "../HTML/company.html?symbol=" + element.symbol);
+    let changesPercentage = cloneLinkTemplate.querySelector("span");
+    if (companyInfo.profile.changesPercentage > 0) {
+      changesPercentage.style.color = "LightGreen";
+    } else {
+      changesPercentage.style.color = "Red";
+    }
+    const sign = companyInfo.profile.changesPercentage > 0 ? "+" : "";
+    changesPercentage.innerHTML = `${sign}${parseFloat(
+      companyInfo.profile.changesPercentage
+    ).toFixed(2)}%`;
     resultList.appendChild(cloneLinkTemplate);
   });
 }
@@ -52,3 +64,11 @@ searchInput.addEventListener("input", (e) => {
     loader.style.display = "none";
   }
 });
+
+async function getCompanyInfo(symbol) {
+  let companyInfo = await loadAPI(
+    "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/" +
+      symbol
+  );
+  return companyInfo;
+}

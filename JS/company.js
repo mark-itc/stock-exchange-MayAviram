@@ -45,7 +45,11 @@ async function getCompanyProfile() {
   stockPrice.innerHTML =
     "Stock Price: " + companyProfile.price + companyProfile.currency;
 
-  changesPercentage.innerHTML = " (" + companyProfile.changesPercentage + ")";
+  const sign = companyProfile.changesPercentage > 0 ? "+" : "";
+  changesPercentage.innerHTML =
+    " (" +
+    `${sign}${parseFloat(companyProfile.changesPercentage).toFixed(2)}%` +
+    ")";
 
   let historyOfStockPrice = await getHistoryOfStockPrice();
   let lableDate = [];

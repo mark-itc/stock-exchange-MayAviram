@@ -34,3 +34,13 @@
     width: 100%;
   }
 }
+
+.companyLogo {
+  height: 25px;
+  margin-right: 10px;
+}
+
+.company-link:hover {
+  color: black;
+  background-color: rgb(158, 156, 156);
+}
