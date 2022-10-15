@@ -1,11 +1,7 @@
-// import { loadAPI } from "./script.js";
-
 let urlQueryString = window.location.search;
-// console.log(urlQueryString);
-
 let companySymbol = new URLSearchParams(urlQueryString).get("symbol");
 let myChart = document.getElementById("myChart");
-// console.log(companySymbol);
+let chartDiv = document.getElementById("chartDiv");
 async function loadAPI(url) {
   try {
     let response = await fetch(url);
@@ -15,15 +11,19 @@ async function loadAPI(url) {
     console.log("err: ", err);
   }
 }
-let chartDiv = document.getElementById("chartDiv");
-async function getCompanyProfile() {
-  let companyProfile = await loadAPI(
+
+async function getCompanyInfo() {
+  let companyInfo = await loadAPI(
     "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/" +
       companySymbol
   );
+  return companyInfo;
+}
+
+async function getCompanyProfile() {
+  let companyProfile = await getCompanyInfo();
 
   companyProfile = companyProfile.profile;
-  //   console.log(companyProfile);
   let companyImage = document.getElementById("companyImage");
   let companyName = document.getElementById("companyName");
   let companyDescription = document.getElementById("companyDescription");
@@ -48,24 +48,22 @@ async function getCompanyProfile() {
   changesPercentage.innerHTML = " (" + companyProfile.changesPercentage + ")";
 
   let historyOfStockPrice = await getHistoryOfStockPrice();
-  //   console.log(historyOfStockPrice);
   let lableDate = [];
   let dataClose = [];
   historyOfStockPrice.forEach((element) => {
-    // console.log("element.date: ", element.date);
     lableDate.push(element.date);
     dataClose.push(element.close);
   });
-  //   console.log("lableDate: ", lableDate);
-  //   console.log("dataClose: ", dataClose);
 
-  chartDiv.classList.add("loader");
+  let wrapper = document.getElementById("wrapper");
+  wrapper.classList.remove("none");
+  let wrapperLoader = document.getElementById("wrapper-loader");
+  wrapperLoader.classList.remove("loader");
   getCharthistoryOfStockPrice(lableDate, dataClose);
 }
 
-getCompanyProfile();
-
 async function getHistoryOfStockPrice() {
+  chartDiv.classList.add("loader");
   let historyOfStockPrice = await loadAPI(
     "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/" +
       companySymbol +
@@ -97,9 +95,6 @@ function getCharthistoryOfStockPrice(lableDate, dataClose) {
 
   chartDiv.classList.remove("loader");
   const newChart = new Chart(myChart, config);
-  //   //   return newChart;
 }
-window.onload = (event) => {
-  let wrapper = document.getElementById("wrapper");
-  wrapper.classList.remove("loader");
-};
+
+getCompanyProfile();
