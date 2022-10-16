@@ -15,7 +15,6 @@
     <link rel="icon" href="./images/websiteLogo.png">
   </head>
   <body>
-    <!-- <marquee behavior="scroll" direction="left">hello</marquee> -->
     <div id="marquee" class="marquee"></div>
     <div class="container search-container bg-light">
       <h1 class="text-center">Search Nasdaq Stock</h1>
@@ -40,8 +39,15 @@
             <div id="resultList">
             </div>
         <div>
-    </div>
+      </div>
     </div>
     <script src="./JS/script.js"></script>
+    <script src="./JS/Marquee.js"></script>
+    <script>
+      (async function(){
+        const marquee = new marqueeStockPrices(document.getElementById("marquee"));
+        marquee.load();
+      })()
+    </script>
   </body>
 </html>

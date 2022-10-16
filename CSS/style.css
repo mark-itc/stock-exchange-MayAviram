@@ -47,8 +47,6 @@
 
 .marquee {
   animation: marquee 40s linear infinite;
-  /* display: flex; */
-  /* flex-direction: row; */
 }
 
 @keyframes marquee {
