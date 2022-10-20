@@ -86,6 +86,7 @@ function getCharthistoryOfStockPrice(lableDate, dataClose) {
         label: "Stock Price History",
         backgroundColor: "rgb(255, 99, 132)",
         borderColor: "rgb(255, 99, 132)",
+        fill: true,
         data: dataClose,
       },
     ],

@@ -5,7 +5,7 @@ class marqueeStockPrices {
 
   async load() {
     this.companyListPrice = await this.loadAPI(
-      "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/quotes"
+      "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/quotes/NASDAQ"
     );
     this.companyListPrice.forEach((company) => {
       this.price = `$${parseFloat(company.price).toFixed(2)}`;

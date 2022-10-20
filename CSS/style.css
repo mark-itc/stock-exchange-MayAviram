@@ -17,6 +17,7 @@
   border: 1px solid #fff;
   border-radius: 10px;
   overflow: hidden;
+  margin: 5px 0px 5px 0px;
 }
 .loader:after {
   content: "";

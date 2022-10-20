@@ -12,42 +12,30 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-    <link rel="icon" href="./images/websiteLogo.png">
+    <link rel="icon" href="./images/websiteLogo.png" />
   </head>
   <body>
     <div id="marquee" class="marquee"></div>
     <div class="container search-container bg-light">
       <h1 class="text-center">Search Nasdaq Stock</h1>
-      <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-          id="searchInput"
-        />
-        <button class="btn btn-outline-success" type="submit" id="searchButton">
-          Search
-        </button>
-      </form>
-      <div>
-        <span class="loader" id="loader"></span>
-        <div class="list-group list-group-flush" id="searchResultList">
-            <template id="template">
-                <a class="list-group-item company-link"><img class="companyLogo"><h7></h7><span></span></a>
-            </template>
-            <div id="resultList">
-            </div>
-        <div>
-      </div>
+      <div id="form"></div>
+      <div id="result"></div>
     </div>
-    <script src="./JS/script.js"></script>
     <script src="./JS/Marquee.js"></script>
+    <script src="./JS/SearchResult.js"></script>
+    <script src="./JS/SearchForm.js"></script>
     <script>
-      (async function(){
-        const marquee = new marqueeStockPrices(document.getElementById("marquee"));
+      (async function () {
+        const marquee = new marqueeStockPrices(
+          document.getElementById("marquee")
+        );
         marquee.load();
-      })()
+        const form = new SearchForm(document.getElementById("form"));
+        const results = new SearchResult(document.getElementById("result"));
+        form.onSearch((companies) => {
+          results.showSearchResult(companies);
+        });
+      })();
     </script>
   </body>
 </html>
