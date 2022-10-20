@@ -62,3 +62,12 @@
 .company-div {
   margin: 10px;
 }
+
+.highlight {
+  background-color: rgb(247, 247, 139);
+}
+
+#percentageSpan {
+  font-size: smaller;
+  margin-left: 5px;
+}

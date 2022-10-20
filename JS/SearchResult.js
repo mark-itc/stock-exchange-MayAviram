@@ -23,6 +23,7 @@ class SearchResult {
 
     this.h = document.createElement("h7");
     this.aSpan = document.createElement("span");
+    this.aSpan.setAttribute("id", "percentageSpan");
 
     this.divResult = document.createElement("div");
     this.divResult.setAttribute("id", "resultList");
@@ -47,18 +48,27 @@ class SearchResult {
 
   async showSearchResult(apiResult) {
     this.divResult.innerHTML = "";
+
     apiResult.forEach(async (element) => {
       this.companyInfo = await this.getCompanyInfo(element.symbol);
+      let name = this.highlightSameWord(element.name);
+      let symbol = this.highlightSameWord(element.symbol);
+      console.log("element.name: ", element.name);
+      console.log("element.symbol: ", element.symbol);
+      console.log("name: ", name);
+      console.log("symbol: ", symbol);
       this.cloneLinkTemplate = this.template.content.cloneNode(true);
       this.cloneLinkTemplate
         .querySelector("img")
         .setAttribute("src", this.companyInfo.profile.image);
-      this.cloneLinkTemplate.querySelector("h7").innerHTML =
-        element.name + " (" + element.symbol + ")";
+      this.cloneLinkTemplate.querySelector(
+        "h7"
+      ).innerHTML = `${name}( ${symbol} )`;
       this.cloneLinkTemplate
         .querySelector("a")
         .setAttribute("href", "../HTML/company.html?symbol=" + element.symbol);
-      this.changesPercentage = this.cloneLinkTemplate.querySelector("span");
+      this.changesPercentage =
+        this.cloneLinkTemplate.querySelector("#percentageSpan");
       if (this.companyInfo.profile.changesPercentage > 0) {
         this.changesPercentage.style.color = "LightGreen";
       } else {
@@ -78,5 +88,21 @@ class SearchResult {
         symbol
     );
     return this.companyInfo;
+  }
+
+  highlightSameWord(text) {
+    let inputText = document.getElementById("searchInput").value;
+    inputText = inputText.toLowerCase();
+    let newText = text.toLowerCase();
+    var index = newText.indexOf(inputText);
+    if (index >= 0) {
+      text =
+        text.substring(0, index) +
+        "<span class='highlight'>" +
+        text.substring(index, index + inputText.length) +
+        "</span>" +
+        text.substring(index + inputText.length);
+    }
+    return text;
   }
 }
