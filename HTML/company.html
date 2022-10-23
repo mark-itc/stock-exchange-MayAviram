@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company profile</title>
+    <link rel="stylesheet" href="../CSS/company.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="../images/websiteLogo.png">
+  </head>
+  <body>
+    <div id="wrapper-loader" class="loader">
+    <div id="wrapper" class="none">
+      <div id="card" class="card">
+        <div class="row g-0">
+          <div class="col-md-1 align-self-center">
+            <img
+              src=""
+              class="img-fluid rounded-start"
+              id="companyImage"
+              alt="company image"
+            />
+          </div>
+          <div class="col-md-11">
+            <div class="card-body">
+              <h5 class="card-title" id="companyName"></h5>
+              <p class="card-text" id="companyDescription"></p>
+
+              <div>
+                <span id="stockPrice"></span
+                ><span id="changesPercentage"></span>
+              </div>
+              <a href="" class="card-text" id="companyWebsite">
+                <small class="text-muted">website</small>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chartDiv">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+    <script src="../JS/company.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </body>
+</html>
